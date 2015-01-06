@@ -5,13 +5,13 @@ module.exports = function (options) {
   var influx = Influx(options)
 
   return function (context, event, date, args) {
-    var id = context.id
-    if (Buffer.isBuffer(id)) id = id.toString('base64')
-
     var obj = {
-      id: id,
       time: Date.now(),
     }
+
+    var id = context.id
+    if (Buffer.isBuffer(id)) id = id.toString('base64')
+    if (id) obj.id = id
 
     if (context.traces) {
       Object.keys(context.traces).forEach(function (key) {
