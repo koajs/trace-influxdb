@@ -35,7 +35,5 @@ module.exports = function (options) {
     }
 
     influx.write(prefix + event, obj)
-
-    return obj
   }
 }
