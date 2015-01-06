@@ -2,7 +2,15 @@
 var Influx = require('influxdb-udp')
 
 module.exports = function (options) {
+  options = options || {}
   var influx = Influx(options)
+
+  // prefix for the series
+  // note: you can have '' as the prefix, i.e. no prefix
+  var prefix = typeof options.prefix === 'string'
+    ? options.prefix
+    : 'trace.'
+  if (prefix && !/\.$/.test(prefix)) prefix += '.'
 
   return function (context, event, date, args) {
     var obj = {
@@ -26,7 +34,7 @@ module.exports = function (options) {
       })
     }
 
-    influx.write('koa-trace.' + event, obj)
+    influx.write(prefix + event, obj)
 
     return obj
   }

@@ -38,7 +38,7 @@ app.use(function* (next) {
 })
 ```
 
-This will create a time series called `koa-trace.start`.
+This will create a time series called `trace.start`.
 Thus, it tracks each event as a separate series.
 You probably want to track the elapsed time.
 
@@ -55,6 +55,13 @@ app.use(function* (next) {
 ```
 
 You may want to build your own helper for this.
+
+## Options
+
+- `host`
+- `port`
+- `prefix` - prefix to add to all the series, defaulting to `trace.`.
+  If you don't want any prefixes, set it as `''`.
 
 ## Limitations
 
